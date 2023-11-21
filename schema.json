@@ -1,0 +1,2998 @@
+{
+	"type": "object",
+	"properties": {
+		"canvas": {
+			"type": "object",
+			"default": {
+				"cn_name": "",
+				"category": "",
+				"type": "com",
+				"icon": "assets/icon.png"
+			},
+			"description": "canvas组件配置字段",
+			"required": [
+				"cn_name",
+				"category",
+				"type",
+				"icon"
+			],
+			"properties": {
+				"cn_name": {
+					"type": "string",
+					"default": "",
+					"description": "组件中文名，例如：饼图"
+				},
+				"category": {
+					"type": "string",
+					"default": "",
+					"description": "组件分类，例如：chart-pie"
+				},
+				"type": {
+					"type": "string",
+					"enum": [
+						"com",
+						"subcom",
+						"logical",
+						"container"
+					],
+					"description": "组件类型"
+				},
+				"icon": {
+					"type": "string",
+					"description": "组件图标",
+					"default": "assets/icon.png"
+				},
+				"platform": {
+					"description": "节点支持的平台",
+					"type": "object",
+					"properties": {
+						"IOS": {
+							"type": "boolean"
+						},
+						"H5": {
+							"type": "boolean"
+						},
+						"Android": {
+							"type": "boolean"
+						},
+						"miniProgram": {
+							"type": "boolean"
+						},
+						"SPA": {
+							"type": "boolean"
+						}
+					}
+				},
+				"basic": {
+					"type": "object",
+					"description": "组件基础配置",
+					"properties": {
+						"default": {
+							"type": "object",
+							"description": "默认基础配置"
+						},
+						"extend": {
+							"$ref": "#/properties/canvas/properties/config",
+							"type": "object",
+							"description": "扩展基础配置"
+						},
+						"flatten": {
+							"type": "object",
+							"description": "基于扁平化对象快捷配置,格式为扁平化对象，key为对象扁平化路径值，例如：'basic.layout.position'，value为config配置对象，可部分缺省",
+							"examples": [
+								{
+									"basic.size.baseSize.height": {
+										"default": "180px",
+										"required": true,
+										"allowEmpty": false
+									}
+								}
+							]
+						}
+					},
+					"additionalProperties": false
+				},
+				"unique": {
+					"type": "boolean",
+					"description": "是否全局唯一"
+				},
+				"verticalLayout": {
+					"type": "boolean",
+					"description": "是否显示为纵向布局,仅type为logical时生效"
+				},
+				"apis": {
+					"type": "object",
+					"description": "组件数据源配置",
+					"default": {
+						"sourceName": {
+							"name": "",
+							"description": "",
+							"fields": {
+								"value": {
+									"description": "值",
+									"type": "string"
+								}
+							}
+						}
+					},
+					"additionalProperties": {
+						"type": "object",
+						"required": [
+							"name"
+						],
+						"default": {},
+						"description": "数据源配置",
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "数据源名称"
+							},
+							"description": {
+								"type": "string",
+								"description": "数据源描述"
+							},
+							"controlledMode": {
+								"type": "boolean",
+								"description": "默认是否开启受控模式"
+							},
+							"fields": {
+								"type": "object",
+								"description": "字段映射",
+								"additionalProperties": {
+									"type": "object",
+									"description": "字段值",
+									"default": {
+										"description": "值",
+										"type": "string"
+									},
+									"properties": {
+										"description": {
+											"type": "string",
+											"description": "字段描述"
+										},
+										"type": {
+											"type": "string",
+											"description": "字段类型"
+										}
+									}
+								}
+							}
+						},
+						"additionalProperties": false
+					}
+				},
+				"api_data": {
+					"type": "object",
+					"description": "默认数据源",
+					"default": {
+						"sourceName": []
+					},
+					"additionalProperties": {
+						"description": "默认数据",
+						"default": []
+					}
+				},
+				"events": {
+					"type": "object",
+					"description": "事件配置",
+					"default": {
+						"eventName": {
+							"name": "事件名称",
+							"description": "",
+							"fields": {
+								"type": "object",
+								"children": {}
+							}
+						}
+					},
+					"additionalProperties": {
+						"$ref": "#/$defs/event"
+					}
+				},
+				"handlers": {
+					"type": "object",
+					"description": "动作配置",
+					"default": {
+						"handlerName": {
+							"name": "动作名称",
+							"description": "",
+							"fields": {
+								"type": "object",
+								"children": {}
+							}
+						}
+					},
+					"additionalProperties": {
+						"$ref": "#/$defs/event"
+					}
+				},
+				"config": {
+					"default": {},
+					"type": "object",
+					"description": "组件属性配置",
+					"additionalProperties": {
+						"type": "object",
+						"required": [
+							"type"
+						],
+						"properties": {
+							"type": {
+								"type": "string",
+								"description": "控件类型",
+								"pattern": "^C.*",
+								"enum": [
+									"CBackgroundImage",
+									"CBlockInterface",
+									"CCheckbox",
+									"CColor",
+									"CColorMapping",
+									"CFlex",
+									"CFont",
+									"CFunction",
+									"CGroup",
+									"CHidden",
+									"CIconSelect",
+									"CImageSelect",
+									"CJSON",
+									"CLogicalTree",
+									"CMenu",
+									"CMultipleSelect",
+									"CObjectColorMapping",
+									"CObjectTabs",
+									"CPadding",
+									"CRadio",
+									"CRotate",
+									"CSelect",
+									"CSlider",
+									"CStepper",
+									"CSuite",
+									"CSwitch",
+									"CTabs",
+									"CText",
+									"CUnitStepper",
+									"CUpload",
+									"CVector"
+								]
+							},
+							"default": {
+								"description": "默认值"
+							},
+							"name": {
+								"type": "string",
+								"description": "标签，缺省时不显示标签"
+							},
+							"col": {
+								"type": "integer",
+								"description": "控件所占栅格数,仅CSuite中子组件生效",
+								"minimum": 1,
+								"maximum": 24
+							},
+							"description": {
+								"type": "string",
+								"description": "tips显示内容"
+							},
+							"nameVisible": {
+								"type": "boolean",
+								"description": "是否显示标题，缺省时为true"
+							},
+							"themeEnable": {
+								"type": "boolean",
+								"description": "是否响应主题配置，默认不响应"
+							},
+							"breakpointsEnable": {
+								"type": "boolean",
+								"description": "是否响应断点配置，默认不响应"
+							},
+							"required": {
+								"type": "boolean",
+								"description": "是否必填,必填时标签上会显示*"
+							},
+							"hideInModes": {
+								"$ref": "#/$defs/hideInModes"
+							},
+							"showInPanel": {
+								"$ref": "#/$defs/showInPanel"
+							}
+						},
+						"examples": [
+							{
+								"type": "CBackgroundImage",
+								"name": "背景图",
+								"default": ""
+							},
+							{
+								"type": "CBlockInterface",
+								"default": {},
+								"title": "配置事件接口"
+							},
+							{
+								"type": "CCheckbox",
+								"name": "多选",
+								"options": [
+									{
+										"label": "选项1",
+										"value": "v1"
+									},
+									{
+										"label": "选项2",
+										"value": "v2"
+									}
+								],
+								"default": [
+									"v1"
+								]
+							},
+							{
+								"type": "CColor",
+								"default": "#fff",
+								"name": "颜色"
+							},
+							{
+								"type": "CColorMapping",
+								"name": "填充颜色",
+								"themeIndex": "$palette.$index",
+								"default": {
+									"abnormal": "rgba(77, 77, 77, 0.5)",
+									"domain": [
+										0,
+										333,
+										666,
+										1000
+									],
+									"range": [
+										"#FE672A",
+										"#d26140",
+										"#a55a57",
+										"#79546d",
+										"#4c4d83"
+									]
+								}
+							},
+							{
+								"type": "CFlex",
+								"name": "弹性布局",
+								"default": {
+									"flexDirection": "column",
+									"flexWrap": "nowrap",
+									"alignContent": "normal",
+									"alignItems": "normal",
+									"justifyContent": "normal"
+								}
+							},
+							{
+								"type": "CFont",
+								"name": "字体",
+								"default": "Microsoft Yahei"
+							},
+							{
+								"type": "CFunction",
+								"functionName": "(data)",
+								"addable": true,
+								"default": [
+									{
+										"id": "default",
+										"name": "处理方法",
+										"content": "return data;"
+									}
+								]
+							},
+							{
+								"type": "CGroup",
+								"name": "标签",
+								"enableHide": true,
+								"children": {
+									"show": {
+										"name": "显示",
+										"type": "CHidden",
+										"default": false
+									},
+									"hideOverlap": {
+										"type": "CSwitch",
+										"name": "重叠隐藏",
+										"description": "是否隐藏重叠的标签",
+										"default": false
+									}
+								}
+							},
+							{
+								"type": "CHidden",
+								"name": "显示",
+								"default": false
+							},
+							{
+								"type": "CIconSelect",
+								"name": "图标类型",
+								"default": "StarOutlined"
+							},
+							{
+								"type": "CImageSelect",
+								"name": "图形",
+								"default": "Arrow",
+								"urlType": "relative",
+								"options": [
+									{
+										"label": "箭头",
+										"value": "Arrow",
+										"url": "assets/arrow.png"
+									},
+									{
+										"label": "圆形",
+										"value": "Circle",
+										"url": "assets/circle.png"
+									}
+								]
+							},
+							{
+								"type": "CJSON",
+								"title": "初始变量",
+								"allowedType": "object",
+								"height": "100px",
+								"default": "{}"
+							},
+							{
+								"type": "CLogicalTree",
+								"default": {
+									"enabled": true,
+									"operator": "$or",
+									"expressions": []
+								}
+							},
+							{
+								"type": "CMenu",
+								"children": {
+									"chart": {
+										"name": "图表",
+										"mode": "single",
+										"children": {
+											"padding": {
+												"name": "自定义边距",
+												"description": "支持输入数字、百分比",
+												"type": "CPadding",
+												"default": {
+													"left": "10%",
+													"bottom": "10%",
+													"right": "10%",
+													"top": "10%"
+												}
+											}
+										}
+									},
+									"axis": {
+										"name": "坐标轴",
+										"mode": "multiple",
+										"children": {
+											"xAxis": {
+												"name": "X轴",
+												"children": {
+													"show": {
+														"type": "CSwitch",
+														"name": "显示",
+														"default": true
+													}
+												}
+											},
+											"yAxis": {
+												"name": "Y轴",
+												"children": {
+													"show": {
+														"type": "CSwitch",
+														"name": "显示",
+														"default": true
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							{
+								"type": "CMultipleSelect",
+								"name": "多选",
+								"label": "按钮名称",
+								"placeholder": "搜索事件",
+								"default": [
+									{
+										"label": "当单击时",
+										"value": "click"
+									}
+								],
+								"options": [
+									{
+										"label": "当高亮时",
+										"value": "highlight",
+										"group": "通用"
+									},
+									{
+										"label": "当取消高亮时",
+										"value": "downplay",
+										"group": "通用"
+									}
+								]
+							},
+							{
+								"type": "CObjectColorMapping",
+								"name": "填充颜色",
+								"themeIndex": "$palette.$index",
+								"default": {
+									"abnormal": "rgba(77, 77, 77, 0.5)",
+									"domain": [
+										{
+											"value": 0
+										},
+										{
+											"value": 333
+										},
+										{
+											"value": 666
+										},
+										{
+											"value": 1000
+										}
+									],
+									"range": {
+										"color1": {
+											"value": "#FE672A",
+											"order": 0
+										},
+										"color2": {
+											"value": "#d26140",
+											"order": 1
+										},
+										"color3": {
+											"value": "#a55a57",
+											"order": 2
+										},
+										"color4": {
+											"value": "#79546d",
+											"order": 3
+										},
+										"color5": {
+											"value": "#4c4d83",
+											"order": 4
+										}
+									}
+								}
+							},
+							{
+								"type": "CObjectTabs",
+								"name": "接收消息",
+								"sortable": false,
+								"addable": true,
+								"default": {
+									"default": {
+										"value": {
+											"message": "接收消息1"
+										},
+										"order": 0
+									}
+								},
+								"template": {
+									"name": "接收消息",
+									"children": {
+										"message": {
+											"type": "CText",
+											"name": "消息名"
+										}
+									}
+								}
+							},
+							{
+								"type": "CPadding",
+								"name": "位置",
+								"default": {
+									"left": "auto",
+									"top": "auto",
+									"right": 0,
+									"bottom": "auto"
+								}
+							},
+							{
+								"type": "CRadio",
+								"name": "类型",
+								"radioType": "button",
+								"options": [
+									{
+										"label": "选项1",
+										"value": "v1"
+									},
+									{
+										"label": "选项2",
+										"value": "v2"
+									}
+								],
+								"default": "v1"
+							},
+							{
+								"type": "CRotate",
+								"name": "旋转"
+							},
+							{
+								"type": "CSelect",
+								"name": "单选",
+								"options": [
+									{
+										"label": "选项1",
+										"value": "v1"
+									},
+									{
+										"label": "选项2",
+										"value": "v2"
+									}
+								],
+								"default": "v1"
+							},
+							{
+								"type": "CSlider",
+								"name": "单滑块",
+								"default": 0,
+								"min": 0,
+								"max": 100
+							},
+							{
+								"type": "CSlider",
+								"name": "滑块范围",
+								"default": [
+									0,
+									20
+								],
+								"min": 0,
+								"max": 20,
+								"step": 0.1,
+								"range": true
+							},
+							{
+								"type": "CStepper",
+								"name": "数字",
+								"step": 1,
+								"min": 1,
+								"default": 1
+							},
+							{
+								"type": "CSuite",
+								"name": "组合套件",
+								"children": {}
+							},
+							{
+								"type": "CSwitch",
+								"name": "开关",
+								"default": false
+							},
+							{
+								"type": "CObjectTabs",
+								"name": "接收消息",
+								"sortable": false,
+								"addable": true,
+								"default": [
+									{
+										"message": "接收消息1"
+									}
+								],
+								"template": {
+									"name": "接收消息",
+									"children": {
+										"message": {
+											"type": "CText",
+											"name": "消息名"
+										}
+									}
+								}
+							},
+							{
+								"type": "CText",
+								"name": "文本",
+								"default": "文本内容"
+							},
+							{
+								"type": "CUnitStepper",
+								"default": "100px",
+								"options": [
+									{
+										"label": "px",
+										"value": "px"
+									},
+									{
+										"label": "rem",
+										"value": "rem"
+									}
+								]
+							},
+							{
+								"type": "CUpload",
+								"name": "背景图",
+								"default": "static/default.png",
+								"accept": "image/jpg,image/jpeg,image/png,image/gif,image/svg+xml"
+							},
+							{
+								"type": "CVector",
+								"name": "最短距离",
+								"default": [
+									50,
+									50
+								]
+							}
+						],
+						"allOf": [
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CBackgroundImage"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"default": {
+											"type": "string",
+											"description": "默认值"
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CBlockInterface"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"default": {
+											"type": "object",
+											"description": "默认值"
+										},
+										"title": {
+											"type": "string",
+											"description": "标题"
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CCheckbox"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"required": [
+										"options",
+										"default"
+									],
+									"properties": {
+										"options": {
+											"$ref": "#/$defs/basicOptions"
+										},
+										"default": {
+											"type": "array",
+											"description": "默认值"
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CColor"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"themeIndex": {
+											"type": "string",
+											"description": "主题配置字段",
+											"examples": [
+												"$assistColor",
+												"$textColor",
+												"$axisColor",
+												"$bgColor",
+												"$palette.0",
+												"$palette.$index"
+											]
+										},
+										"modes": {
+											"type": "array",
+											"description": "选择器模式",
+											"items": {
+												"enum": [
+													"solid",
+													"gradient"
+												]
+											},
+											"uniqueItems": true
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CColorMapping"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"themeIndex": {
+											"type": "string",
+											"description": "主题配置字段",
+											"examples": [
+												"$assistColor",
+												"$textColor",
+												"$axisColor",
+												"$bgColor",
+												"$palette.0",
+												"$palette.$index"
+											]
+										},
+										"disableCustom": {
+											"type": "boolean",
+											"description": "是否支持自定义映射配置"
+										},
+										"disableAbnormal": {
+											"type": "boolean",
+											"description": "是否支持异常值配置"
+										},
+										"default": {
+											"type": "object",
+											"properties": {
+												"abnormal": {
+													"type": "string",
+													"description": "无数据或异常值时的颜色"
+												},
+												"domain": {
+													"type": "array",
+													"description": "颜色映射的自定义阈值",
+													"items": {
+														"type": "number"
+													}
+												},
+												"range": {
+													"type": "array",
+													"description": "颜色映射",
+													"items": {
+														"type": "string"
+													}
+												},
+												"custom": {
+													"type": "boolean",
+													"description": "默认是否开启自定义映射"
+												}
+											},
+											"required": [
+												"range"
+											]
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CFlex"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object"
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CFont"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object"
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CFunction"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"functionName": {
+											"type": "string",
+											"description": "函数名"
+										},
+										"maxFun": {
+											"type": "integer",
+											"description": "函数最大数量",
+											"minimum": 1
+										},
+										"addable": {
+											"type": "boolean",
+											"description": "是否可新增"
+										},
+										"title": {
+											"type": "string",
+											"description": "标题"
+										},
+										"injectable": {
+											"type": "boolean",
+											"description": "是否可以注入变量"
+										},
+										"default": {
+											"type": "array",
+											"description": "默认值",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string",
+														"description": "id"
+													},
+													"name": {
+														"type": "string",
+														"description": "函数名称"
+													},
+													"content": {
+														"type": "string",
+														"description": "函数内容"
+													}
+												},
+												"default": {
+													"id": "default",
+													"name": "处理方法",
+													"content": "return data;"
+												}
+											}
+										}
+									},
+									"required": [
+										"functionName",
+										"default"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CGroup"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"enableHide": {
+											"type": "boolean",
+											"description": "是否显示显隐开关"
+										},
+										"children": {
+											"$ref": "#/properties/canvas/properties/config"
+										},
+										"unfold": {
+											"type": "boolean",
+											"description": "默认是否展开"
+										}
+									},
+									"required": [
+										"children"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CHidden"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object"
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CIconSelect"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"options": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CImageSelect"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"urlType": {
+											"enum": [
+												"relative"
+											],
+											"description": "url类型，relative表示本地相对路径"
+										},
+										"options": {
+											"type": "array",
+											"description": "选项列表",
+											"items": {
+												"type": "object",
+												"properties": {
+													"label": {
+														"type": "string",
+														"description": "标签"
+													},
+													"value": {
+														"description": "选项值"
+													},
+													"url": {
+														"type": "string",
+														"description": "图片地址"
+													}
+												}
+											}
+										}
+									},
+									"required": [
+										"options"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CJSON"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"title": {
+											"type": "string",
+											"description": "标题"
+										},
+										"allowedType": {
+											"type": "array",
+											"items": {
+												"enum": [
+													"array",
+													"object",
+													"number",
+													"boolean"
+												]
+											},
+											"description": "允许输入的类型"
+										},
+										"readOnly": {
+											"type": "boolean",
+											"description": "是否只读"
+										},
+										"height": {
+											"type": "string",
+											"description": "控件高度",
+											"examples": [
+												"100px"
+											]
+										},
+										"default": {
+											"type": "string",
+											"description": "默认值"
+										}
+									},
+									"required": [
+										"default"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CLogicalTree"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"default": {
+											"type": "object",
+											"properties": {
+												"enabled": {
+													"type": "boolean",
+													"description": "是否启用"
+												},
+												"operator": {
+													"enum": [
+														"$or",
+														"$and"
+													],
+													"description": "操作符"
+												},
+												"expressions": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"expressions": {
+																"type": "array",
+																"items": {
+																	"field": {
+																		"type": "string",
+																		"description": "字段名称"
+																	},
+																	"type": {
+																		"enum": [
+																			"string",
+																			"number"
+																		],
+																		"description": "字段类型"
+																	},
+																	"logical": {
+																		"enum": [
+																			"$=",
+																			"$!=",
+																			"$>",
+																			"$<",
+																			"$>=",
+																			"$<=",
+																			"$in",
+																			"$nin",
+																			null,
+																			"$reg"
+																		],
+																		"description": "操作符"
+																	},
+																	"value": {
+																		"description": "值"
+																	}
+																}
+															},
+															"operator": {
+																"enum": [
+																	"$or",
+																	"$and"
+																],
+																"description": "操作符"
+															}
+														}
+													},
+													"description": "逻辑表达式"
+												}
+											},
+											"required": [
+												"enabled",
+												"operator",
+												"expressions"
+											]
+										}
+									},
+									"required": [
+										"default"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CMenu"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"children": {
+											"default": {},
+											"description": "菜单配置",
+											"additionalProperties": {
+												"type": "object",
+												"default": {
+													"name": "菜单",
+													"mode": "single",
+													"children": {}
+												},
+												"properties": {
+													"name": {
+														"type": "string",
+														"description": "菜单名称"
+													},
+													"mode": {
+														"enum": [
+															"multiple",
+															"single"
+														],
+														"description": "菜单模式"
+													},
+													"hideInModes": {
+														"$ref": "#/$defs/hideInModes"
+													},
+													"showInPanel": {
+														"$ref": "#/$defs/showInPanel"
+													}
+												},
+												"allOf": [
+													{
+														"if": {
+															"properties": {
+																"mode": {
+																	"const": "multiple"
+																}
+															},
+															"required": [
+																"mode"
+															]
+														},
+														"then": {
+															"type": "object",
+															"properties": {
+																"children": {
+																	"additionalProperties": {
+																		"type": "object",
+																		"default": {
+																			"name": "菜单",
+																			"children": {}
+																		},
+																		"properties": {
+																			"name": {
+																				"type": "string",
+																				"description": "菜单名称"
+																			},
+																			"children": {
+																				"$ref": "#/properties/canvas/properties/config"
+																			}
+																		},
+																		"required": [
+																			"name",
+																			"children"
+																		]
+																	}
+																}
+															}
+														}
+													},
+													{
+														"if": {
+															"properties": {
+																"mode": {
+																	"const": "single"
+																}
+															},
+															"required": [
+																"mode"
+															]
+														},
+														"then": {
+															"type": "object",
+															"properties": {
+																"children": {
+																	"$ref": "#/properties/canvas/properties/config"
+																}
+															}
+														}
+													}
+												],
+												"required": [
+													"name",
+													"mode",
+													"children"
+												]
+											}
+										}
+									},
+									"required": [
+										"children"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CMultipleSelect"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"options": {
+											"type": "array",
+											"description": "选项列表",
+											"items": {
+												"type": "object",
+												"properties": {
+													"label": {
+														"type": "string",
+														"description": "标签"
+													},
+													"value": {
+														"description": "值"
+													},
+													"group": {
+														"type": "string",
+														"description": "分组字段"
+													}
+												},
+												"required": [
+													"label",
+													"value"
+												]
+											}
+										},
+										"placeholder": {
+											"type": "string",
+											"description": "占位文本"
+										},
+										"label": {
+											"type": "string",
+											"description": "按钮内容"
+										},
+										"groupBy": {
+											"type": "string",
+											"description": "分组字段"
+										},
+										"default": {
+											"type": "array",
+											"description": "默认值",
+											"items": {
+												"type": "object",
+												"properties": {
+													"label": {
+														"type": "string",
+														"description": "标签"
+													},
+													"value": {
+														"description": "值"
+													},
+													"group": {
+														"type": "string",
+														"description": "分组字段"
+													}
+												},
+												"required": [
+													"label",
+													"value"
+												]
+											}
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CObjectColorMapping"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"themeIndex": {
+											"type": "string",
+											"description": "主题配置字段",
+											"examples": [
+												"$assistColor",
+												"$textColor",
+												"$axisColor",
+												"$bgColor",
+												"$palette.0",
+												"$palette.$index"
+											]
+										},
+										"disableCustom": {
+											"type": "boolean",
+											"description": "是否支持自定义映射配置"
+										},
+										"disableAbnormal": {
+											"type": "boolean",
+											"description": "是否支持异常值配置"
+										},
+										"default": {
+											"type": "object",
+											"properties": {
+												"abnormal": {
+													"type": "string",
+													"description": "无数据或异常值时的颜色"
+												},
+												"domain": {
+													"type": "array",
+													"description": "颜色映射的自定义阈值",
+													"default": [
+														{
+															"value": 100
+														}
+													],
+													"items": {
+														"type": "object",
+														"properties": {
+															"value": {
+																"type": "number",
+																"description": "阈值"
+															}
+														},
+														"required": [
+															"value"
+														]
+													}
+												},
+												"range": {
+													"type": "object",
+													"description": "颜色映射",
+													"additionalProperties": {
+														"type": "object",
+														"default": {
+															"value": "#FE672A",
+															"order": 0
+														},
+														"properties": {
+															"value": {
+																"type": "string",
+																"description": "色值"
+															},
+															"order": {
+																"type": "number",
+																"description": "色值排序值"
+															}
+														},
+														"required": [
+															"value",
+															"order"
+														]
+													}
+												},
+												"custom": {
+													"type": "boolean",
+													"description": "默认是否开启自定义映射"
+												}
+											},
+											"required": [
+												"range"
+											]
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CObjectTabs"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"addable": {
+											"type": "boolean",
+											"description": "是否可新增"
+										},
+										"sortable": {
+											"type": "boolean",
+											"description": "是否可排序"
+										},
+										"template": {
+											"type": "object",
+											"description": "模板",
+											"properties": {
+												"name": {
+													"type": "string",
+													"description": "标签名称"
+												},
+												"children": {
+													"$ref": "#/properties/canvas/properties/config"
+												}
+											},
+											"required": [
+												"name",
+												"children"
+											]
+										},
+										"unfold": {
+											"type": "boolean",
+											"description": "默认是否展开"
+										},
+										"maxTabs": {
+											"type": "integer",
+											"minimum": 0,
+											"description": "最大标签数量"
+										},
+										"minTabs": {
+											"type": "integer",
+											"minimum": 0,
+											"description": "最小标签数量"
+										},
+										"default": {
+											"description": "默认值",
+											"type": "object",
+											"additionalProperties": {
+												"type": "object",
+												"default": {
+													"value": {},
+													"order": 0
+												},
+												"properties": {
+													"value": {
+														"type": "object",
+														"description": "值"
+													},
+													"order": {
+														"type": "integer",
+														"minimum": 0,
+														"description": "排序值"
+													}
+												},
+												"required": [
+													"value",
+													"order"
+												]
+											}
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CPadding"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"isNumber": {
+											"type": "boolean",
+											"description": "是否为数字输入模式"
+										},
+										"allowEmpty": {
+											"type": "boolean",
+											"description": "是否允许为空"
+										}
+									},
+									"if": {
+										"properties": {
+											"isNumber": {
+												"const": true
+											}
+										},
+										"required": [
+											"isNumber"
+										]
+									},
+									"then": {
+										"type": "object",
+										"properties": {
+											"step": {
+												"type": "number",
+												"description": "步长"
+											},
+											"min": {
+												"type": "number",
+												"description": "最小值"
+											},
+											"max": {
+												"type": "number",
+												"description": "最大值"
+											},
+											"default": {
+												"type": "object",
+												"description": "默认值",
+												"properties": {
+													"top": {
+														"type": [
+															"number",
+															"null"
+														]
+													},
+													"bottom": {
+														"type": [
+															"number",
+															"null"
+														]
+													},
+													"left": {
+														"type": [
+															"number",
+															"null"
+														]
+													},
+													"right": {
+														"type": [
+															"number",
+															"null"
+														]
+													}
+												},
+												"required": [
+													"top",
+													"bottom",
+													"left",
+													"right"
+												]
+											}
+										}
+									},
+									"else": {
+										"properties": {
+											"default": {
+												"type": "object",
+												"description": "默认值",
+												"properties": {
+													"top": {
+														"type": [
+															"number",
+															"null",
+															"string"
+														]
+													},
+													"bottom": {
+														"type": [
+															"number",
+															"null",
+															"string"
+														]
+													},
+													"left": {
+														"type": [
+															"number",
+															"null",
+															"string"
+														]
+													},
+													"right": {
+														"type": [
+															"number",
+															"null",
+															"string"
+														]
+													}
+												},
+												"required": [
+													"top",
+													"bottom",
+													"left",
+													"right"
+												]
+											}
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CRadio"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"radioType": {
+											"enum": [
+												"button",
+												"icon",
+												"radio"
+											],
+											"description": "显示类型"
+										},
+										"iconType": {
+											"enum": [
+												"iconfont"
+											],
+											"description": "图标类型，当radioType为icon时生效"
+										}
+									},
+									"oneOf": [
+										{
+											"properties": {
+												"options": {
+													"type": "array",
+													"description": "选项列表",
+													"items": {
+														"type": "object",
+														"properties": {
+															"label": {
+																"type": "string",
+																"description": "标签"
+															},
+															"value": {
+																"type": [
+																	"string",
+																	"boolean"
+																],
+																"description": "值"
+															},
+															"src": {
+																"type": "string",
+																"description": "图标字符串，仅支持ant-design/icons"
+															}
+														},
+														"required": [
+															"value"
+														]
+													}
+												}
+											}
+										},
+										{
+											"properties": {
+												"options": {
+													"$ref": "#/$defs/shortcutOptions"
+												}
+											}
+										}
+									],
+									"required": [
+										"options"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CRotate"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"default": {
+											"type": "integer",
+											"minimum": 0,
+											"maximum": 360,
+											"description": "默认值"
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CSelect"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"filterable": {
+											"type": "boolean",
+											"description": "是否可筛选"
+										},
+										"addable": {
+											"type": "boolean",
+											"description": "是否可新增"
+										},
+										"placeholder": {
+											"type": "string",
+											"description": "占位文本"
+										},
+										"disableClearable": {
+											"type": "boolean",
+											"description": "是否禁用清除按钮"
+										}
+									},
+									"oneOf": [
+										{
+											"properties": {
+												"options": {
+													"$ref": "#/$defs/basicOptions"
+												}
+											}
+										},
+										{
+											"properties": {
+												"options": {
+													"$ref": "#/$defs/shortcutOptions"
+												}
+											}
+										}
+									],
+									"required": [
+										"options"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CSlider"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"precision": {
+											"type": "integer",
+											"description": "精度（小数位数）",
+											"minimum": 0
+										},
+										"range": {
+											"type": "boolean",
+											"description": "是否是双滑块模式"
+										},
+										"tooltipVisible": {
+											"type": "boolean",
+											"description": "是否显示提示信息"
+										},
+										"step": {
+											"type": "number",
+											"description": "步长",
+											"exclusiveMinimum": 0
+										},
+										"min": {
+											"type": "number",
+											"description": "最小值"
+										},
+										"max": {
+											"type": "number",
+											"description": "最大值"
+										}
+									},
+									"required": [
+										"min",
+										"max"
+									],
+									"if": {
+										"properties": {
+											"range": {
+												"const": true
+											}
+										},
+										"required": [
+											"range"
+										]
+									},
+									"then": {
+										"properties": {
+											"default": {
+												"type": "array",
+												"prefixItems": [
+													{
+														"type": "number"
+													},
+													{
+														"type": "number"
+													}
+												],
+												"items": false,
+												"minItems": 2,
+												"maxItems": 2
+											}
+										}
+									},
+									"else": {
+										"properties": {
+											"default": {
+												"type": "number",
+												"description": "默认值"
+											}
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CStepper"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"step": {
+											"$ref": "#/$defs/step"
+										},
+										"min": {
+											"$ref": "#/$defs/min"
+										},
+										"max": {
+											"$ref": "#/$defs/max"
+										},
+										"precision": {
+											"$ref": "#/$defs/precision"
+										},
+										"allowEmpty": {
+											"$ref": "#/$defs/allowEmpty"
+										},
+										"prefix": {
+											"$ref": "#/$defs/prefix"
+										},
+										"suffix": {
+											"$ref": "#/$defs/suffix"
+										},
+										"placeholder": {
+											"$ref": "#/$defs/placeholder"
+										},
+										"disabled": {
+											"$ref": "#/$defs/disabled"
+										}
+									},
+									"required": [
+										"default"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CSuite"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"enableHide": {
+											"type": "boolean",
+											"description": "是否显示显隐开关"
+										},
+										"children": {
+											"$ref": "#/properties/canvas/properties/config"
+										}
+									},
+									"required": [
+										"children"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CSwitch"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"default": {
+											"type": "boolean",
+											"description": "默认值"
+										}
+									},
+									"required": [
+										"default"
+									]
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CTabs"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"addable": {
+											"type": "boolean",
+											"description": "是否可新增"
+										},
+										"sortable": {
+											"type": "boolean",
+											"description": "是否可排序"
+										},
+										"template": {
+											"type": "object",
+											"description": "模板",
+											"properties": {
+												"name": {
+													"type": "string",
+													"description": "标签名称"
+												},
+												"children": {
+													"$ref": "#/properties/canvas/properties/config"
+												}
+											},
+											"required": [
+												"name",
+												"children"
+											]
+										},
+										"unfold": {
+											"type": "boolean",
+											"description": "默认是否展开"
+										},
+										"maxTabs": {
+											"type": "integer",
+											"minimum": 0,
+											"description": "最大标签数量"
+										},
+										"minTabs": {
+											"type": "integer",
+											"minimum": 0,
+											"description": "最小标签数量"
+										},
+										"default": {
+											"description": "默认值",
+											"type": "array",
+											"items": {
+												"type": "object"
+											}
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CText"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"placeholder": {
+											"$ref": "#/$defs/placeholder"
+										},
+										"prefix": {
+											"$ref": "#/$defs/prefix"
+										},
+										"suffix": {
+											"$ref": "#/$defs/suffix"
+										},
+										"textArea": {
+											"type": "boolean",
+											"description": "是否是多行文本输入框"
+										},
+										"maxLength": {
+											"type": "integer",
+											"minimum": 0,
+											"description": "最大输入长度"
+										},
+										"default": {
+											"type": "string",
+											"description": "默认值"
+										}
+									},
+									"if": {
+										"properties": {
+											"textArea": {
+												"const": true
+											}
+										},
+										"required": [
+											"textArea"
+										]
+									},
+									"then": {
+										"properties": {
+											"rows": {
+												"type": "integer",
+												"minimum": 0,
+												"description": "默认行数"
+											},
+											"autoSize": {
+												"type": "object",
+												"description": "最大最小行数配置",
+												"properties": {
+													"minRows": {
+														"type": "integer",
+														"minimum": 0,
+														"description": "最小行数"
+													},
+													"maxRows": {
+														"type": "integer",
+														"minimum": 0,
+														"description": "最大行数"
+													}
+												}
+											},
+											"fullscreen": {
+												"type": "boolean",
+												"description": "是否显示全屏编辑按钮"
+											}
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CUnitStepper"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"step": {
+											"$ref": "#/$defs/step"
+										},
+										"min": {
+											"$ref": "#/$defs/min"
+										},
+										"max": {
+											"$ref": "#/$defs/max"
+										},
+										"precision": {
+											"$ref": "#/$defs/precision"
+										},
+										"allowEmpty": {
+											"$ref": "#/$defs/allowEmpty"
+										},
+										"prefix": {
+											"$ref": "#/$defs/prefix"
+										},
+										"suffix": {
+											"$ref": "#/$defs/suffix"
+										},
+										"placeholder": {
+											"$ref": "#/$defs/placeholder"
+										},
+										"disabled": {
+											"$ref": "#/$defs/disabled"
+										},
+										"default": {
+											"description": "默认值",
+											"type": [
+												"string",
+												"null"
+											]
+										},
+										"options": {
+											"type": "array",
+											"description": "单位列表",
+											"default": [
+												{
+													"label": "px",
+													"value": "px"
+												}
+											],
+											"items": {
+												"type": "object",
+												"properties": {
+													"label": {
+														"type": "string",
+														"description": "名称"
+													},
+													"value": {
+														"type": "string",
+														"description": "值"
+													}
+												}
+											}
+										},
+										"required": [
+											"options"
+										]
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CUpload"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"accept": {
+											"type": "string",
+											"description": "支持的文件格式"
+										},
+										"default": {
+											"type": "string",
+											"description": "默认文件地址"
+										},
+										"sizeLimit": {
+											"type": "number",
+											"minimum": 0,
+											"description": "限制最大文件大小,单位MB"
+										},
+										"fileType": {
+											"enum": [
+												"image",
+												"video",
+												"audio"
+											],
+											"description": "上传的文件类型"
+										}
+									}
+								}
+							},
+							{
+								"if": {
+									"properties": {
+										"type": {
+											"const": "CVector"
+										}
+									},
+									"required": [
+										"type"
+									]
+								},
+								"then": {
+									"type": "object",
+									"properties": {
+										"x": {
+											"type": "object",
+											"description": "x轴方向",
+											"default": {
+												"label": "名称",
+												"step": 5
+											},
+											"properties": {
+												"label": {
+													"type": "string",
+													"description": "名称"
+												},
+												"step": {
+													"$ref": "#/$defs/step"
+												},
+												"min": {
+													"$ref": "#/$defs/min"
+												},
+												"max": {
+													"$ref": "#/$defs/max"
+												},
+												"precision": {
+													"$ref": "#/$defs/precision"
+												},
+												"allowEmpty": {
+													"$ref": "#/$defs/allowEmpty"
+												},
+												"prefix": {
+													"$ref": "#/$defs/prefix"
+												},
+												"suffix": {
+													"$ref": "#/$defs/suffix"
+												},
+												"placeholder": {
+													"$ref": "#/$defs/placeholder"
+												},
+												"disabled": {
+													"$ref": "#/$defs/disabled"
+												}
+											}
+										},
+										"y": {
+											"type": "object",
+											"description": "y轴方向",
+											"properties": {
+												"label": {
+													"type": "string",
+													"description": "名称"
+												},
+												"step": {
+													"$ref": "#/$defs/step"
+												},
+												"min": {
+													"$ref": "#/$defs/min"
+												},
+												"max": {
+													"$ref": "#/$defs/max"
+												},
+												"precision": {
+													"$ref": "#/$defs/precision"
+												},
+												"allowEmpty": {
+													"$ref": "#/$defs/allowEmpty"
+												},
+												"prefix": {
+													"$ref": "#/$defs/prefix"
+												},
+												"suffix": {
+													"$ref": "#/$defs/suffix"
+												},
+												"placeholder": {
+													"$ref": "#/$defs/placeholder"
+												},
+												"disabled": {
+													"$ref": "#/$defs/disabled"
+												}
+											}
+										},
+										"default": {
+											"type": "array",
+											"minItems": 2,
+											"maxItems": 2,
+											"items": {
+												"type": "number"
+											}
+										}
+									}
+								}
+							}
+						]
+					}
+				},
+				"children": {
+					"type": "object",
+					"description": "子组件配置",
+					"default": {
+						"accept": [
+							{
+								"type": "subcom",
+								"category": [
+									"map2d-basemap",
+									"map2d-layer",
+									"map2d-topinfo"
+								]
+							}
+						]
+					},
+					"properties": {
+						"accept": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": [
+											"string",
+											"array"
+										],
+										"description": "组件名称",
+										"items": {
+											"type": "string"
+										}
+									},
+									"category": {
+										"type": [
+											"string",
+											"array"
+										],
+										"description": "组件分类",
+										"items": {
+											"type": "string"
+										}
+									},
+									"maxCount": {
+										"type": "integer",
+										"minimum": 1,
+										"description": "最大子组件数量（当前类型）",
+										"default": 1
+									}
+								},
+								"anyOf": [
+									{
+										"properties": {
+											"type": {
+												"enum": [
+													"com",
+													"subcom",
+													"panel",
+													"container"
+												],
+												"description": "组件类型"
+											}
+										}
+									},
+									{
+										"properties": {
+											"type": {
+												"type": "array",
+												"description": "组件类型",
+												"items": {
+													"enum": [
+														"com",
+														"subcom",
+														"panel",
+														"container"
+													]
+												}
+											}
+										}
+									}
+								]
+							},
+							"description": "合法子组件列表"
+						},
+						"default": {
+							"type": "array",
+							"items": {
+								"anyOf": [
+									{
+										"type": "string",
+										"description": "子组件name值"
+									},
+									{
+										"type": "object",
+										"description": "子组件配置项",
+										"properties": {
+											"name": {
+												"type": "string",
+												"description": "子组件name值"
+											},
+											"custom": {
+												"type": "boolean",
+												"description": "是否为自定义子组件,缺省时默认为false"
+											}
+										},
+										"additionalProperties": false,
+										"required": [
+											"name"
+										]
+									}
+								]
+							},
+							"description": "默认子组件列表"
+						},
+						"order": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"type": {
+										"enum": [
+											"com",
+											"subcom"
+										],
+										"description": "组件类型"
+									},
+									"name": {
+										"type": "string",
+										"description": "组件名称"
+									},
+									"category": {
+										"type": "string",
+										"description": "组件分类"
+									}
+								}
+							},
+							"description": "子组件排序规则"
+						},
+						"tabVisible": {
+							"type": "boolean",
+							"description": "是否显示children分类标签页，默认为true"
+						},
+						"maxCount": {
+							"type": "integer",
+							"minimum": 1,
+							"description": "最大子组件数量（所有子组件）",
+							"default": 1
+						},
+						"template": {
+							"type": "object",
+							"description": "子组件模板",
+							"properties": {
+								"panel": {
+									"type": "object",
+									"description": "panel默认值配置",
+									"default": {
+										"info": {}
+									},
+									"properties": {
+										"info": {
+											"type": "object",
+											"description": "默认info属性",
+											"properties": {
+												"name": {
+													"type": "string",
+													"description": "子组件中文名称"
+												}
+											},
+											"additionalProperties": false
+										},
+										"basic": {
+											"type": "object",
+											"description": "面板默认basic值",
+											"default": {}
+										}
+									},
+									"additionalProperties": false
+								}
+							},
+							"additionalProperties": {
+								"type": "object",
+								"description": "子组件默认配置",
+								"default": {
+									"attr": {}
+								},
+								"properties": {
+									"attr": {
+										"type": "object",
+										"description": "默认attr配置"
+									},
+									"basic": {
+										"type": "object",
+										"description": "默认basic配置"
+									}
+								}
+							}
+						}
+					},
+					"additionalProperties": false,
+					"required": [
+						"accept"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"allOf": [
+				{
+					"if": {
+						"properties": {
+							"type": {
+								"const": "logical"
+							}
+						},
+						"required": [
+							"type"
+						]
+					},
+					"then": {
+						"properties": {
+							"category": {
+								"enum": [
+									"block",
+									"global-node",
+									"process-control",
+									"data-process",
+									"instance-enhancer",
+									"result-process",
+									"reactive-extensions",
+									"native"
+								],
+								"default": "",
+								"description": "逻辑节点分类"
+							}
+						}
+					}
+				},
+				{
+					"if": {
+						"properties": {
+							"type": {
+								"enum": [
+									"com",
+									"subcom"
+								]
+							}
+						},
+						"required": [
+							"type"
+						]
+					},
+					"then": {
+						"properties": {
+							"category": {
+								"type": "string",
+								"default": "",
+								"description": "组件分类，例如：chart-pie"
+							}
+						}
+					}
+				}
+			]
+		}
+	},
+	"$defs": {
+		"step": {
+			"type": "number",
+			"exclusiveMinimum": 0,
+			"description": "步长，不填时默认为1"
+		},
+		"min": {
+			"type": "number",
+			"description": "最小值，不填时默认为-Infinity"
+		},
+		"max": {
+			"type": "number",
+			"description": "最大值，不填时默认为Infinity"
+		},
+		"precision": {
+			"type": "integer",
+			"minimum": 0,
+			"description": "精度（小数位数）"
+		},
+		"allowEmpty": {
+			"type": "boolean",
+			"description": "是否允许为空值null，不允许时，空值会被格式化为0"
+		},
+		"prefix": {
+			"type": "string",
+			"description": "前缀"
+		},
+		"suffix": {
+			"type": "string",
+			"description": "后缀"
+		},
+		"placeholder": {
+			"type": "string",
+			"description": "占位文本"
+		},
+		"basicOptions": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"label": {
+						"type": "string",
+						"description": "标签"
+					},
+					"value": {
+						"description": "值"
+					}
+				},
+				"required": [
+					"label",
+					"value"
+				]
+			},
+			"description": "选项列表",
+			"default": [
+				{
+					"label": "选项1",
+					"value": "v1"
+				},
+				{
+					"label": "选项2",
+					"value": "v2"
+				}
+			]
+		},
+		"shortcutOptions": {
+			"description": "选项列表",
+			"enum": [
+				"$fontFamily",
+				"$fontWeight",
+				"$placement",
+				"$lineType",
+				"$legendIcon",
+				"$alignContent",
+				"$justifyContent",
+				"$alignItems",
+				"$justifyItems"
+			]
+		},
+		"disabled": {
+			"type": "boolean",
+			"description": "是否禁用"
+		},
+		"showInPanel": {
+			"type": "object",
+			"description": "动态切换显示、隐藏配置",
+			"required": [
+				"conditions"
+			],
+			"default": {
+				"conditions": [
+					[
+						".c",
+						"$=",
+						"value"
+					]
+				]
+			},
+			"properties": {
+				"conditions": {
+					"type": "array",
+					"description": "逻辑表达式",
+					"items": {
+						"type": "array",
+						"prefixItems": [
+							{
+								"type": "string",
+								"description": "路径,支持绝对路径a.b.c或者相对路径..c"
+							},
+							{
+								"enum": [
+									"$=",
+									"$!=",
+									"$>",
+									"$<",
+									"$>=",
+									"$<=",
+									"$in",
+									"$nin"
+								],
+								"description": "操作符"
+							},
+							{
+								"description": "值"
+							}
+						],
+						"items": false
+					}
+				},
+				"logicalType": {
+					"enum": [
+						"$and",
+						"$or"
+					],
+					"description": "逻辑运算符,缺省时为$and"
+				}
+			}
+		},
+		"hideInModes": {
+			"type": [
+				"array",
+				"boolean"
+			],
+			"items": {
+				"enum": [
+					"simple"
+				]
+			},
+			"enum": [
+				false,
+				[
+					"simple"
+				]
+			],
+			"uniqueItems": true,
+			"default": [
+				"simple"
+			],
+			"description": "配置项在哪些模式下隐藏，默认所有模式下均显示，不支持在详细模式下隐藏，为false时在所有模式下均显示"
+		},
+		"event": {
+			"type": "object",
+			"description": "单个动作/事件配置",
+			"required": [
+				"name"
+			],
+			"default": {
+				"name": "动作/事件名称",
+				"description": "动作/事件描述",
+				"fields": {
+					"type": "string"
+				}
+			},
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "动作/事件名称"
+				},
+				"description": {
+					"type": "string",
+					"description": "动作/事件描述"
+				},
+				"fields": {
+					"type": "object",
+					"description": "数据格式定义",
+					"default": {
+						"type": "string",
+						"description": ""
+					},
+					"properties": {
+						"type": {
+							"enum": [
+								"string",
+								"boolean",
+								"number",
+								"array",
+								"object",
+								"any",
+								"null"
+							],
+							"description": "字段类型"
+						},
+						"name": {
+							"type": "string",
+							"description": "该字段在 children 字段内且父级描述对象的type字段为object时为必填项, 其余情况不生效,用于标识当前描述对象在上层object对象中的键"
+						},
+						"description": {
+							"type": "string",
+							"description": "字段描述"
+						},
+						"optional": {
+							"type": "boolean",
+							"description": "是否非必填/可能为空"
+						},
+						"default": {
+							"description": "默认值"
+						}
+					},
+					"allOf": [
+						{
+							"if": {
+								"properties": {
+									"type": {
+										"const": "object"
+									}
+								},
+								"required": [
+									"type"
+								]
+							},
+							"then": {
+								"properties": {
+									"children": {
+										"type": "object",
+										"description": "用于树状嵌套描述对象",
+										"additionalProperties": {
+											"$ref": "#/$defs/event/properties/fields"
+										}
+									}
+								},
+								"required": [
+									"children"
+								]
+							}
+						}
+					],
+					"required": [
+						"type"
+					]
+				},
+				"describer": {
+					"type": "object",
+					"properties": {
+						"useChannel": {
+							"type": "object",
+							"description": "该动作/事件支持的平台",
+							"properties": {
+								"IOS": {
+									"type": "boolean"
+								},
+								"H5": {
+									"type": "boolean"
+								},
+								"Android": {
+									"type": "boolean"
+								},
+								"miniProgram": {
+									"type": "boolean"
+								},
+								"SPA": {
+									"type": "boolean"
+								}
+							}
+						},
+						"pairType": {
+							"type": "string",
+							"description": "该动作/事件对应的端口类型；值存在时，该动作/事件只能与同为此类型的端口直连；缺省时无此限制"
+						}
+					}
+				}
+			}
+		}
+	},
+	"required": [
+		"name",
+		"version"
+	]
+}
